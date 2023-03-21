@@ -15,6 +15,7 @@ option_list = list(
               help="dataset file name", metavar="character"),
   make_option(c("-o", "--out"), type="character", default="clustered.csv", 
               help="output file name [default= %default]", metavar="character"),
+  make_option(c("-e", "--environment"), default=NULL, help="conda environment", metavar="character"),
   make_option(c("-n", "--n_trial_kmeans"),  default="100", 
               help="the times of kmeans++ you want to run", metavar=""),
   make_option(c("-m", "--n_trial_kneedle"),  default="100", 
@@ -30,7 +31,7 @@ if (is.null(opt$file)){
   stop("At least one argument must be supplied (input file).n", call.=FALSE)
 }
 # use the conda environments
-use_condaenv("PhenoSpec")
+use_condaenv(opt$environment)
 source_python("Step1_Kmeans_kneed_2022.1.py")
 
 # (1) check if there is any clusters that have less than 3 curves

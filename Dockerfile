@@ -1,8 +1,20 @@
-from r-base:4.2.2
+from continuumio/miniconda3
 
-# copy sources
-copy . /opt/DIRTclust
-workdir /opt/DIRTclust
+# update packages
+run apt-get update && \
+    apt-get install -y dirmngr \
+    gnupg \
+    apt-transport-https \
+    ca-certificates \
+    software-properties-common \
+    libcurl4-openssl-dev \
+    libssl-dev
+
+# install R
+run apt-key adv --keyserver keyserver.ubuntu.com --recv-key '95C0FAF38DB3CCAD0C080A7BDC78B2DDEABC47B7' && \
+    add-apt-repository 'deb http://cloud.r-project.org/bin/linux/debian bullseye-cran40/' && \
+    apt-get update && \
+    apt-get install -y r-base r-base-dev
 
 # install R dependencies
 run R -e "install.packages('stringr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
@@ -13,15 +25,14 @@ run R -e "install.packages('roahd',dependencies=TRUE, repos='http://cran.rstudio
 run R -e "install.packages('cluster',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 run R -e "install.packages('optparse',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
-# install conda
-env PATH="/root/miniconda3/bin:${PATH}"
-arg PATH="/root/miniconda3/bin:${PATH}"
-run wget https://repo.anaconda.com/miniconda/Miniconda3-py310_23.1.0-1-Linux-x86_64.sh -O install_conda.sh && \
-    chmod +x install_conda.sh && \
-    ./install_conda.sh -b
+# copy sources
+workdir /opt/DIRTclust
+copy . /opt/DIRTclust
 
-# create conda env and configure run commands to use it
+# create environment
 run conda env create -f dirtclust.yml
-shell ["conda", "run", "-n", "arbc", "/bin/bash", "-c"]
 
-entrypoint ["conda", "run", "--no-capture-output", "-n", "arbc", "./wrapper.sh"]
+# configure conda env to auto-activate in shells
+run conda init bash
+run echo "conda activate arbc" > ~/.bashrc
+
