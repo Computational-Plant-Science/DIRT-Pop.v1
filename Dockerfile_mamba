@@ -9,7 +9,8 @@ RUN apt-get update && \
     ca-certificates \
     software-properties-common \
     libcurl4-openssl-dev \
-    libssl-dev
+    libssl-dev \
+    libstdc++6
 
 # install tk for python3 (need to temporarily switch to root since micromamba sets the default user)
 RUN apt-get update && apt-get install -y python3-tk curl bzip2
@@ -21,13 +22,15 @@ run apt-key adv --keyserver keyserver.ubuntu.com --recv-key '95C0FAF38DB3CCAD0C0
     apt-get install -y r-base r-base-dev
 
 # install R dependencies
+run R -e "install.packages('remotes',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 run R -e "install.packages('stringr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 run R -e "install.packages('tidyr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 run R -e "install.packages('lattice',dependencies=TRUE, repos='http://cran.rstudio.com/')"
-run R -e "install.packages('reticulate',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+# run R -e "install.packages('reticulate',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 run R -e "install.packages('roahd',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 run R -e "install.packages('cluster',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 run R -e "install.packages('optparse',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+run R -e "library(remotes); install_version('reticulate', '1.22')"
 
 USER $MAMBAUSER
 

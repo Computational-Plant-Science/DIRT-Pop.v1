@@ -31,7 +31,8 @@ if (is.null(opt$file)){
   stop("At least one argument must be supplied (input file).n", call.=FALSE)
 }
 # use the conda environments
-use_condaenv(opt$environment)
+# use_condaenv(opt$environment, conda="/bin/micromamba")
+use_condaenv(condaenv="/opt/conda/envs/arbc", conda="/bin/micromamba")
 source_python("Step1_Kmeans_kneed_2022.1.py")
 
 # (1) check if there is any clusters that have less than 3 curves
