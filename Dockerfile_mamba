@@ -1,0 +1,50 @@
+FROM mambaorg/micromamba:0.19.1
+
+USER root
+
+RUN apt-get update && \
+    apt-get install -y dirmngr \
+    gnupg \
+    apt-transport-https \
+    ca-certificates \
+    software-properties-common \
+    libcurl4-openssl-dev \
+    libssl-dev
+
+# install tk for python3 (need to temporarily switch to root since micromamba sets the default user)
+RUN apt-get update && apt-get install -y python3-tk curl bzip2
+
+# install R
+run apt-key adv --keyserver keyserver.ubuntu.com --recv-key '95C0FAF38DB3CCAD0C080A7BDC78B2DDEABC47B7' && \
+    add-apt-repository 'deb http://cloud.r-project.org/bin/linux/debian bullseye-cran40/' && \
+    apt-get update && \
+    apt-get install -y r-base r-base-dev
+
+# install R dependencies
+run R -e "install.packages('stringr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+run R -e "install.packages('tidyr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+run R -e "install.packages('lattice',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+run R -e "install.packages('reticulate',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+run R -e "install.packages('roahd',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+run R -e "install.packages('cluster',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+run R -e "install.packages('optparse',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+
+USER $MAMBAUSER
+
+# copy source and configure conda environment
+WORKDIR /opt/DIRTclust
+COPY . /opt/DIRTclust
+COPY --chown=$MAMBA_USER:$MAMBA_USER dirtclust.yml /opt/DIRTclust/dirtclust.yml
+RUN micromamba create --yes --file /opt/DIRTclust/dirtclust.yml && micromamba clean --all --yes
+ENV ENV_NAME="arbc"
+
+# fix matplotlib Qt issue (https://stackoverflow.com/a/52353715)
+ARG MAMBA_DOCKERFILE_ACTIVATE=1
+RUN pip uninstall -y matplotlib && \
+    python -m pip install --upgrade pip && \
+    pip install matplotlib
+
+# environment should automatically activate
+RUN chmod +x activate_env.sh
+ENV BASH_ENV=/opt/code/activate_env.sh
+
