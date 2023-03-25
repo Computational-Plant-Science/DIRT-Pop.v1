@@ -15,7 +15,7 @@ option_list = list(
               help="dataset file name", metavar="character"),
   make_option(c("-o", "--out"), type="character", default="clustered.csv", 
               help="output file name [default= %default]", metavar="character"),
-  make_option(c("-e", "--environment"), default=NULL, help="conda environment", metavar="character"),
+  # make_option(c("-e", "--environment"), default=NULL, help="conda environment", metavar="character"),
   make_option(c("-n", "--n_trial_kmeans"),  default="100", 
               help="the times of kmeans++ you want to run", metavar=""),
   make_option(c("-m", "--n_trial_kneedle"),  default="100", 
