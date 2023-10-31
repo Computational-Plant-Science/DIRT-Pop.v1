@@ -1,5 +1,7 @@
 # DIRT-Pop
 
+![DIRT-Pop Overview](./Pipeline.png)
+
 DIRT-Pop is a robust pipeline tailored for clustering root architecture types. It's specially designed to work in tandem with outputs produced by the Digital Image of Root Traits (DIRT) software.
 
 ## Prerequisites
@@ -40,7 +42,7 @@ Finally, execute the DIRT-Pop clustering script:
 N_TRIAL_KMEANS=<number_of_clustering_trials> \
 N_TRIAL_KNEEDLE=<number_of_kneedle_trials> \
 N_CLUSTER=<number_of_clusters> \
-INPUT=/opt/DIRT-Pop/DIRTtest.csv \
+INPUT=/opt/DIRT-Pop/DIRTtest.csv \ # your DIRT file 
 WORKDIR=/opt/DIRT-Pop ./wrapper.sh
 ```
 
