@@ -35,10 +35,10 @@ run R -e "library(remotes); install_version('reticulate', '1.22')"
 USER $MAMBAUSER
 
 # copy source and configure conda environment
-WORKDIR /opt/DIRTclust
-COPY . /opt/DIRTclust
-COPY --chown=$MAMBA_USER:$MAMBA_USER dirtclust.yml /opt/DIRTclust/dirtclust.yml
-RUN micromamba create --yes --file /opt/DIRTclust/dirtclust.yml && micromamba clean --all --yes
+WORKDIR /opt/DIRT-Pop
+COPY . /opt/DIRT-Pop
+COPY --chown=$MAMBA_USER:$MAMBA_USER dirtclust.yml /opt/DIRT-Pop/DIRT-Pop.yml
+RUN micromamba create --yes --file /opt/DIRT-Pop/DIRT-Pop.yml && micromamba clean --all --yes
 ENV ENV_NAME="arbc"
 
 # fix matplotlib Qt issue (https://stackoverflow.com/a/52353715)

@@ -1,5 +1,5 @@
-# DIRTclust 
-DIRTclust is a pipeline to clustering root architecture shapes after Digital Image of Root Traits (DIRT) software. 
+# DIRT-Pop
+DIRTclust is a pipeline to clustering root architecture types after Digital Image of Root Traits (DIRT) software. 
 The usage is 
 1. Git clone this repository 
 2. Open a terminal, change to this repository
