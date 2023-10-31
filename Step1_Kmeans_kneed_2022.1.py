@@ -8,19 +8,12 @@ Created on Mon Jun 15 14:21:04 2020
 The script is used to get the raw spectrum from DS curves. 
 
 """
-#import sys
+
 from sklearn.cluster import KMeans
-#from sklearn import metrics
 import pandas as pd
 from kneed import KneeLocator
-#import matplotlib.pyplot as plt 
 import numpy as np
-#from scipy import interpolate
-#from scipy.signal import argrelextrema
-#from sklearn.preprocessing import PolynomialFeatures
-#from sklearn.linear_model import LinearRegression
-#import warnings
-#from typing import Tuple, Optional, Iterable
+
 
 # function to import DIRT format data, and return only the DS value for 10%-90% depth 
 def inputdata_ds(file):
@@ -58,22 +51,11 @@ def kneepoint_onetime(K,ds):
         inerita=model.inertia_
         withinVar.append(inerita)
         #print(withinVar)
-    # within variance percentage, total variance equal to when cluster number is 1     
-    #withinVarPer = withinVar/withinVar[0]
-    #print(withinVarPer)
-    #between variance percentage 
-    #Percentage_explained = (1-withinVarPer)*100
     x=[j for j in range(1,K+1)] # K number 
     # S is sensitivity 
     kn=KneeLocator(x, withinVar, S=1, curve='convex', direction='decreasing',interp_method='polynomial')
     kneepoint=kn.knee
-    #kn.plot_knee()
-    #kn.plot_knee_normalized()
     return kneepoint
-    #print(kneepoint)
-    # show the knee plot 
-    #kn.plot_knee()
-    #kn.plot_knee_normalized()
     
 # n is the number of trials of kmeans++
 # To get the most frequent knee point 
@@ -97,12 +79,8 @@ def kmeansplusplus(n_trial,n_trial_kneedle,ncluster_test,ds,dswithtag):
         kmeansplusplus= KMeans(algorithm='lloyd',init= 'k-means++', max_iter=50, n_clusters=cluster_num, n_init=30, random_state=None)
         model=kmeansplusplus.fit(ds)
         cluster_label=model.labels_.tolist()
-#       print(cluster_label)
         inerita=model.inertia_
         inerita=np.asarray(inerita).tolist()# change float type numpy array
-#       inerita=model.inertia_.tolist()
-#        print(inerita)
-        #calihara_score=metrics.calinski_harabaz_score(ds, cluster_label).tolist()
         tmp.append((cluster_label,inerita))
     cols=['label','inertia']
     # create dataframe to store each run label and caliharascore 
