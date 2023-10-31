@@ -2,7 +2,7 @@
 
 ![DIRT-Pop Overview](./Pipeline.png)
 
-DIRT-Pop is a robust pipeline tailored for clustering root architecture types. It's specially designed to work in tandem with outputs produced by the Digital Image of Root Traits (DIRT) software.
+DIRT-Pop is a robust pipeline tailored for clustering root architecture types. It's specially designed to work with outputs produced by the Digital Image of Root Traits (DIRT) software.
 
 ## Prerequisites
 
