@@ -50,7 +50,7 @@ Replace the following placeholders with appropriate values:
 
 - `<number_of_clustering_trials>`: Specify the number of clustering iterations (e.g., `25`).
 - `<number_of_kneedle_trials>`: Specify the number of kneedle algorithm tests (e.g., `25`).
-- `<number_of_clusters>`: Indicate the desired number of clusters (e.g., `25`).
+- `<number_of_clusters>`: Specify the max number of clusters you want to look for (e.g., `25` means searching for 1-25 clusters)
 - Note: Modify the `INPUT` path if your DIRT output file is located elsewhere or named differently.
 
 
