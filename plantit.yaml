@@ -3,7 +3,7 @@ author: Limeng Xie
 public: False
 shell: bash
 image: docker://computationalplantscience/dirtclust
-commands: ./opt/code/wrapper.sh
+commands: ./opt/DIRT-Pop/wrapper.sh
 jobqueue:
   walltime: "72:00:00"
   memory: "40GB"
