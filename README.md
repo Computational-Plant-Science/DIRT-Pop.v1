@@ -16,7 +16,7 @@ Before running DIRT-Pop, ensure the following software are installed:
 
 Clone the DIRT-Pop repository to your local machine:
 ```bash
-git clone https://github.com/tomatopepper/DIRT-Pop.
+git clone https://github.com/lxie88/DIRT-Pop.v1
 ```
 
 
@@ -24,7 +24,7 @@ git clone https://github.com/tomatopepper/DIRT-Pop.
 
 Once cloned, navigate into the repository's directory:
 ```bash
-cd DIRT-Pop
+cd DIRT-Pop.v1
 ```
 
 
